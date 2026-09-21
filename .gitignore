@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+env/
+
+# Environment / secrets — never commit
+.env
+
+# Local uploads (production will use Cloudinary)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+pip-selfcheck.json
