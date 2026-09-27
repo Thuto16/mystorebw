@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — MyStore BW</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- ============================================
+       LOGIN SCREEN (visible until logged in)
+       ============================================ -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <div class="login-brand">
+        <svg class="logo-mark" viewBox="0 0 44 44" aria-hidden="true">
+          <rect x="2" y="2" width="40" height="40" rx="12" fill="currentColor"/>
+          <path d="M13 30 V14 L22 24 L31 14 V30"
+                stroke="#fff" stroke-width="2.6"
+                fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="login-brand-name">MyStore<span class="accent">.BW</span></span>
+      </div>
+
+      <h1>Admin sign in</h1>
+      <p class="login-sub">Enter your credentials to manage products and orders.</p>
+
+      <form id="loginForm" class="login-form">
+        <label>
+          Username
+          <input type="text" name="username" required autocomplete="username" placeholder="admin">
+        </label>
+        <label>
+          Password
+          <input type="password" name="password" required autocomplete="current-password" placeholder="••••••••">
+        </label>
+        <p id="loginError" class="form-error"></p>
+        <button type="submit" class="btn-primary btn-full">Sign in</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================
+       DASHBOARD (hidden until logged in)
+       ============================================ -->
+  <div id="dashboard" class="dashboard hidden">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <svg class="logo-mark" viewBox="0 0 44 44" aria-hidden="true">
+          <rect x="2" y="2" width="40" height="40" rx="12" fill="currentColor"/>
+          <path d="M13 30 V14 L22 24 L31 14 V30"
+                stroke="#fff" stroke-width="2.6"
+                fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>MyStore<span class="accent">.BW</span></span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-tab="products">
+          <span class="nav-icon">📦</span> Products
+        </button>
+        <button class="nav-item" data-tab="orders">
+          <span class="nav-icon">🧾</span> Orders
+        </button>
+      </nav>
+
+      <button id="logoutBtn" class="logout-btn">Log out</button>
+    </aside>
+
+    <!-- Main content -->
+    <main class="content">
+
+      <!-- PRODUCTS TAB -->
+      <section id="tab-products" class="tab-panel">
+        <header class="panel-head">
+          <div>
+            <h2>Products</h2>
+            <p class="panel-sub" id="productsCount">Loading…</p>
+          </div>
+          <button id="addProductBtn" class="btn-primary">+ Add product</button>
+        </header>
+        <div id="productsList" class="products-list">
+          <p class="loading-msg">Loading products…</p>
+        </div>
+      </section>
+
+      <!-- ORDERS TAB -->
+      <section id="tab-orders" class="tab-panel hidden">
+        <header class="panel-head">
+          <div>
+            <h2>Orders</h2>
+            <p class="panel-sub" id="ordersCount">Loading…</p>
+          </div>
+          <button id="refreshOrdersBtn" class="btn-ghost">↻ Refresh</button>
+        </header>
+        <div id="ordersList" class="orders-list">
+          <p class="loading-msg">Loading orders…</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============================================
+       PRODUCT MODAL (add / edit)
+       ============================================ -->
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close">✕</button>
+      <h2 id="productModalTitle">Add product</h2>
+      <p class="modal-sub">Fill in the details and save.</p>
+
+      <form id="productForm" class="product-form">
+        <input type="hidden" name="id">
+        <input type="hidden" name="image_url">
+
+        <label>
+          Product name
+          <input type="text" name="name" required placeholder="e.g. Nike Air Force 1">
+        </label>
+
+        <label>
+          Description
+          <textarea name="description" rows="3" placeholder="Short description shown on the card"></textarea>
+        </label>
+
+        <div class="form-row">
+          <label>
+            Price (P)
+            <input type="number" name="price" step="0.01" min="0" required placeholder="1299.00">
+          </label>
+
+          <label>
+            Category
+            <select name="category" required>
+              <option value="">Choose…</option>
+              <option value="shoes">Shoes</option>
+              <option value="clothing">Clothing</option>
+              <option value="electronics">Electronics</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          Subcategory (optional)
+          <input type="text" name="subcategory" placeholder="e.g. sneakers, jackets">
+        </label>
+
+        <label>
+          Product image
+          <input type="file" id="imageFile" accept="image/*">
+        </label>
+
+        <div id="imagePreview" class="image-preview"></div>
+        <p id="uploadStatus" class="upload-status"></p>
+
+        <label class="checkbox-row">
+          <input type="checkbox" name="is_available" checked>
+          <span>Available (visible in the shop)</span>
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost modal-cancel">Cancel</button>
+          <button type="submit" class="btn-primary" id="saveBtn">Save product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
