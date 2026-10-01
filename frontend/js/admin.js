@@ -2,7 +2,7 @@
 // admin.js — Login, product management, order viewing.
 // ============================================================
 
-const API_BASE = '';
+const API_BASE = 'https://mystorebw-api.onrender.com';
 const TOKEN_KEY = 'mystorebw_admin_token';
 
 let editingProductId = null;   // null = adding new, number = editing existing
