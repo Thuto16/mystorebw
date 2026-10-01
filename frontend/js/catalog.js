@@ -5,7 +5,7 @@
 
 // During local dev, the API lives at the same origin. Later we
 // swap this to the Render URL when we deploy.
-const API_BASE = '';
+const API_BASE = 'https://mystorebw-api.onrender.com';
 
 // All the state we track on the page
 const state = {
